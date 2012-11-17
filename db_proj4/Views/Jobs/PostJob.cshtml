@@ -1,0 +1,72 @@
+﻿@model db_proj4.Models.entities.Jobs
+@{
+    ViewBag.Title = "PostJob";
+}
+
+<h2>Post Job</h2>
+
+@using (Html.BeginForm())
+{
+    <fieldset>
+        <legend>Post Job</legend>
+        <div class="editor-label">
+            @Html.LabelFor(m => m.Field)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(m => m.Field, new[] { 
+                new SelectListItem() {Text = "Networks", Value = "Networks"}, 
+                new SelectListItem() {Text = "Programming", Value = "Programming"},
+                new SelectListItem() {Text = "Other", Value = "Other"} 
+            }, "Choose an option")
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(m => m.Skills)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(m => m.Skills)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(m => m.Experience)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(m => m.Experience, new[] { 
+                new SelectListItem() {Text = "0-2 Years", Value = "0-2 Years"}, 
+                new SelectListItem() {Text = "3-7 Years", Value = "3-7 Years"},
+                new SelectListItem() {Text = "8+ Years", Value = "8+ Years"} 
+            }, "Choose an option")
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(m => m.Salary)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(m => m.Salary)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(m => m.Location)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(m => m.Location)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(m => m.Title)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(m => m.Title)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(m => m.Description)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(m => m.Description, new { @cols = "80", @rows = "4" })
+        </div>
+        <p>
+            <input type="submit" value="Post" />
+        </p>
+    </fieldset>
+}

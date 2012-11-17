@@ -9,7 +9,7 @@
     <div class="page">
         <div id="header">
             <div id="title">
-                <h1>My MVC Application</h1>
+                <h1>Job Loader</h1>
             </div>
             <div id="logindisplay">
                 @Html.Partial("_LogOnPartial")
@@ -17,13 +17,28 @@
             <div id="menucontainer">
                 <ul id="menu">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    @if (Request.IsAuthenticated)
+                    { 
+                        <li>@Html.ActionLink("Profile", "Index", "Home")</li> 
+                        <li>@Html.ActionLink("Jobs", "Index", "Jobs")</li> 
+                    }
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                 </ul>
             </div>
         </div>
-        <div id="main">
-            @RenderBody()
-        </div>
+        
+            <div id="sidebar">
+                Profile<br />
+                Application<br />
+                       Profile<br />
+                Application<br />
+                   Profile<br />
+                Application<br />
+            </div>
+            <div id="main">
+                @RenderBody()
+            </div>
+        
         <div id="footer">
         </div>
     </div>

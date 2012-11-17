@@ -38,7 +38,7 @@ namespace db_proj4.Controllers
                     }
                     else
                     {
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Jobs");
                     }
                 }
                 else
@@ -84,7 +84,7 @@ namespace db_proj4.Controllers
                 if (createStatus == MembershipCreateStatus.Success)
                 {
                     FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Jobs");
                 }
                 else
                 {

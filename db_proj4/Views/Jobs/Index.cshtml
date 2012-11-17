@@ -1,0 +1,19 @@
+﻿@model IEnumerable<db_proj4.Models.entities.Jobs>
+@{
+    ViewBag.Title = "Jobs";
+}
+
+@Html.ActionLink("Post My Job", "PostJob", "Jobs")
+
+<h3>Recently Posted</h3>
+<table>
+    @foreach (var job in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(x => @job.Date)</td>
+            <td>@job.Field</td>
+            <td>@job.Title</td>
+            <td>@job.Location</td>
+        </tr>
+    }
+</table>

@@ -1,0 +1,23 @@
+﻿@model IEnumerable<db_proj4.Models.entities.Applicants>
+
+@{
+    ViewBag.Title = "ApplicantsList";
+}
+
+<h2>ApplicantsList</h2>
+
+<table>
+    @foreach (var applicant in Model)
+    {
+        <tr>
+            <td>@applicant.Userid</td>
+            <td>@applicant.Appid</td>
+            <td>@applicant.Aemail</td>
+            <td>@applicant.Degree</td>
+            <td>@applicant.DegreeField</td>
+            <td>@applicant.Fname</td>
+            <td>@applicant.Lname</td>
+            <td>@applicant.School</td>
+        </tr>
+    }
+</table>
