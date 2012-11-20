@@ -32,13 +32,14 @@ namespace db_proj4.Controllers
         }
 
         [HttpPost]
-        public ActionResult PostJob(JobsRepository jr)
+        public ActionResult PostJob(Jobs job)
         {
             Database db = DatabaseFactory.CreateDatabase();
-            var job = new Jobs();
 
             DbCommand command = db.GetStoredProcCommand("Jobs_InsertJob");
 
+            db.AddInParameter(command, "@Rid", System.Data.DbType.Int32, 3);
+            db.AddInParameter(command, "@Date", System.Data.DbType.DateTime, DateTime.Now);
             db.AddInParameter(command, "@Field", System.Data.DbType.String, job.Field);
             db.AddInParameter(command, "@Skills", System.Data.DbType.String, job.Skills);
             db.AddInParameter(command, "@Experience", System.Data.DbType.String, job.Experience);
