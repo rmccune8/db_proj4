@@ -13,6 +13,7 @@ namespace db_proj4.Controllers
     public class JobsController : Controller
     {
       JobsRepository jobRepo;
+      
 
         public JobsController()
         {
@@ -50,6 +51,47 @@ namespace db_proj4.Controllers
             db.ExecuteScalar(command);
 
             return RedirectToAction("Index", "Jobs");
+        }
+
+   
+        public ActionResult DeleteJob(int id)
+        {
+            Database db = DatabaseFactory.CreateDatabase();
+
+            DbCommand command = db.GetStoredProcCommand("Jobs_DeleteJob");
+
+            db.AddInParameter(command, "@Jobid", System.Data.DbType.Int32, id);
+            db.ExecuteScalar(command);
+
+            return RedirectToAction("Index", "Jobs");
+        }
+
+        public ActionResult EditJob(int id)
+        {
+            //Database db = DatabaseFactory.CreateDatabase();
+
+            //DbCommand command = db.GetStoredProcCommand("Jobs_ViewEditJob");
+            
+            //db.AddInParameter(command, "@Jobid", System.Data.DbType.Int32, id);
+            //db.ExecuteScalar(command);
+
+            //return RedirectToAction("EditJob", "Jobs");
+            
+            var model = jobRepo.ViewEditJob(id);
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult EditJob(Jobs job)
+        {
+            int Jobid = job.Jobid;
+            int? Salary = job.Salary;
+            string Field = job.Field, Skills = job.Skills, Experience = job.Experience, Location = job.Location,
+                   Title = job.Title, Description = job.Description;
+
+            JobsRepository.UpdateJob(job.Jobid, Field, Skills, Experience, Salary, Location, Title, Description);
+
+            return RedirectToAction("Index");
         }
     }
 }

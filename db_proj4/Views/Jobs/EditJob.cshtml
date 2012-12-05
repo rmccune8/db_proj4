@@ -1,15 +1,15 @@
 ﻿@model db_proj4.Models.entities.Jobs
 @{
-    ViewBag.Title = "Post Job";
+    ViewBag.Title = "Edit Job";
 }
 
-<h2>Post Job</h2>
+<h2>Edit Job</h2>
 
 @using (Html.BeginForm())
 {
     <fieldset>
-        <legend>Post Job</legend>
-     @Html.Hidden("Jobid")
+        <legend>Edit Job</legend>
+            @Html.Hidden("Jobid")
             @Html.Hidden("Rid")
         <div class="editor-label">
             @Html.LabelFor(m => m.Field)

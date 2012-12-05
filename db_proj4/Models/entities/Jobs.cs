@@ -8,7 +8,10 @@ namespace db_proj4.Models.entities
 {
     public class Jobs
     {
+        [Display(Name = "Jobid")]
         public int Jobid { get; set; }
+
+        [Display(Name = "Rid")]
         public int Rid { get; set; }
 
         [Display(Name = "Title")]
