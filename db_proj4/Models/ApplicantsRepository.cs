@@ -67,5 +67,23 @@ namespace db_proj4.Models
             }
             return list;
         }
+
+        public static void InsertApplicant(int Userid, string Fname, string Lname, string School,
+                                    string Aemail, string Degree, string DegreeField)
+        {
+            Database db = DatabaseFactory.CreateDatabase();
+            //User is added to Users database below.
+
+            DbCommand command = db.GetStoredProcCommand("Applicants_InsertApplicant");
+            db.AddInParameter(command, "@Userid", System.Data.DbType.Int32, Userid);
+
+            db.AddInParameter(command, "@Fname", System.Data.DbType.String, Fname);
+            db.AddInParameter(command, "@Lname", System.Data.DbType.String, Lname);
+            db.AddInParameter(command, "@School", System.Data.DbType.String, School);
+            db.AddInParameter(command, "@Aemail", System.Data.DbType.String, Aemail);
+            db.AddInParameter(command, "@Degree", System.Data.DbType.String, Degree);
+            db.AddInParameter(command, "@DegreeField", System.Data.DbType.String, DegreeField);
+            db.ExecuteScalar(command);
+        }
     }
 }

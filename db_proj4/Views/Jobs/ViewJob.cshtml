@@ -1,0 +1,56 @@
+﻿@model db_proj4.Models.entities.Jobs
+
+@{
+    ViewBag.Title = "View Job";
+}
+
+<h2>View Job</h2>
+
+ <fieldset>
+        <legend>View Job</legend>
+            @Html.Hidden("Jobid")
+            @Html.Hidden("Rid")
+        <div class="editor-label">
+            <b>@Html.LabelFor(m => m.Field):</b>
+            @Model.Field
+        </div>
+       
+
+        <div class="editor-label">
+            <b>@Html.LabelFor(m => m.Skills):</b>
+            @Model.Skills
+        </div>
+        
+
+        <div class="editor-label">
+            <b>@Html.LabelFor(m => m.Experience):</b>
+            @Model.Experience
+        </div>
+       
+
+        <div class="editor-label">
+            <b>@Html.LabelFor(m => m.Salary):</b>
+            @Model.Salary
+        </div>
+       
+
+        <div class="editor-label">
+            <b>@Html.LabelFor(m => m.Location):</b>
+            @Model.Location
+        </div>
+       
+
+        <div class="editor-label">
+           <b>@Html.LabelFor(m => m.Title):</b>
+            @Model.Title
+        </div>
+        
+
+        <div class="editor-label">
+            <b>@Html.LabelFor(m => m.Description):</b>
+            <br />@Model.Description
+        </div>
+       <p>
+     @Html.ActionLink("Back", "Index", "Jobs")
+           </p>
+    </fieldset>

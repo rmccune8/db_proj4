@@ -84,14 +84,16 @@ namespace db_proj4.Controllers
         [HttpPost]
         public ActionResult EditJob(Jobs job)
         {
-            int Jobid = job.Jobid;
-            int? Salary = job.Salary;
-            string Field = job.Field, Skills = job.Skills, Experience = job.Experience, Location = job.Location,
-                   Title = job.Title, Description = job.Description;
-
-            JobsRepository.UpdateJob(job.Jobid, Field, Skills, Experience, Salary, Location, Title, Description);
+            JobsRepository.UpdateJob(job.Jobid, job.Field, job.Skills, job.Experience, job.Salary,
+                job.Location, job.Title, job.Description);
 
             return RedirectToAction("Index");
+        }
+
+        public ActionResult ViewJob(int id)
+        {
+            var model = jobRepo.ViewEditJob(id);
+            return View(model);
         }
     }
 }

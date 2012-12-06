@@ -7,7 +7,7 @@
 <h2>Hello Applicant, Please fill in this form</h2>
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
-        
+        @Html.Hidden("Userid")
         <div class="editor-label">
             @Html.LabelFor(m => m.Fname)
         </div>

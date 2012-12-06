@@ -5,7 +5,7 @@
 }
 <h2>Hello Applicant, Please fill in this form</h2>
 
-@using (Html.BeginForm(new {Id= ViewData["Userid"]}))
+@using (Html.BeginForm())
 {
     @Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
         

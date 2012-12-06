@@ -242,6 +242,7 @@
     <Content Include="Views\Users\SubmitPassword.cshtml" />
     <Content Include="Views\Applicants\AddApplicant.cshtml" />
     <Content Include="Views\Applicants\Create.cshtml" />
+    <Content Include="Views\Jobs\ViewJob.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

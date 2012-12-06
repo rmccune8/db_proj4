@@ -26,24 +26,14 @@ namespace db_proj4.Controllers
             ViewData["Userid"] = Id;
             return View();
         }
+
         [HttpPost]
-        public ActionResult AddApplicant(Applicants app, int Id)
+        public ActionResult Create(Applicants app)
         {
-            Database db = DatabaseFactory.CreateDatabase();
-            //User is added to Users database below.
+            ApplicantsRepository.InsertApplicant(app.Userid, app.Fname, app.Lname, app.School, app.Aemail,
+                app.Degree, app.DegreeField);
 
-            DbCommand command = db.GetStoredProcCommand("Applicants_InsertApplicant");
-            db.AddInParameter(command, "@Userid", System.Data.DbType.Int32, Id);
-
-            db.AddInParameter(command, "@Fname", System.Data.DbType.String, app.Fname);
-            db.AddInParameter(command, "@Lname", System.Data.DbType.String, app.Lname);
-            db.AddInParameter(command, "@School", System.Data.DbType.String, app.School);
-            db.AddInParameter(command, "@Aemail", System.Data.DbType.String, app.Aemail);
-            db.AddInParameter(command, "@Degree", System.Data.DbType.String, app.Degree);
-            db.AddInParameter(command, "@DegreeField", System.Data.DbType.String, app.DegreeField);
-            db.ExecuteScalar(command);
-
-            return RedirectToAction("Create", "AddApplicant", new { _id = Id });
+            return RedirectToAction("Index", "Home");
         }
     }
 }
