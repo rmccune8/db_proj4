@@ -1,22 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
 using db_proj4.Models;
+using db_proj4.Models.entities;
+using Microsoft.Practices.EnterpriseLibrary.Data;
 
 namespace db_proj4.Controllers
 {
     public class AccountController : Controller
     {
+        AccountsRepository accRepo;
+        bool credsintable = false; //used to check table's credentials
+        public int currentuserid = 0;
+        public AccountController()
+        {
+            accRepo = new AccountsRepository();
+        }
+
+        public int getuserid()
+        {
+            return currentuserid;
+        }
 
         //
         // GET: /Account/LogOn
 
         public ActionResult LogOn()
         {
+
             return View();
         }
 
@@ -26,11 +42,21 @@ namespace db_proj4.Controllers
         [HttpPost]
         public ActionResult LogOn(LogOnModel model, string returnUrl)
         {
+            var listofaccts = accRepo.BuildList();
+            foreach (var thisguy in listofaccts) //checking user table for user+pass
+                if (thisguy.Username == model.Username)
+                {
+                    if (thisguy.Pass == model.Password)
+                        credsintable = true; //name = name in table & that pass =the pass given
+                }
+
+
             if (ModelState.IsValid)
             {
-                if (Membership.ValidateUser(model.UserName, model.Password))
+                if (/*Membership.ValidateUser(model.Username, model.Password) &&*/ credsintable)
                 {
-                    FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
+                    FormsAuthentication.SetAuthCookie(model.Username, model.RememberMe);
+
                     if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/")
                         && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
                     {
@@ -79,12 +105,36 @@ namespace db_proj4.Controllers
             {
                 // Attempt to register the user
                 MembershipCreateStatus createStatus;
-                Membership.CreateUser(model.UserName, model.Password, model.Email, null, null, true, null, out createStatus);
-
-                if (createStatus == MembershipCreateStatus.Success)
+                Membership.CreateUser(model.Username, model.Type, model.Password, null, null, true, null, out createStatus);
+                var listofacct = accRepo.BuildList();
+                foreach (var thisguy in listofacct) //checking user table for username
+                    if (thisguy.Username == model.Username)
+                    {
+                        credsintable = true;//name in Jobloader DB
+                    }
+                if (/*createStatus == MembershipCreateStatus.Success*/!credsintable)
                 {
-                    FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
-                    return RedirectToAction("Index", "Jobs");
+                    //We check our DB for name, -> we don't need cookie
+                    //FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
+                    Database db = DatabaseFactory.CreateDatabase();
+                    //User is added to Users database below.
+                    DbCommand command = db.GetStoredProcCommand("Users_InsertUser");
+                    //User ID automatically generated
+                    db.AddInParameter(command, "@Username", System.Data.DbType.String, model.Username);
+                    db.AddInParameter(command, "@Type", System.Data.DbType.String, model.Type);
+                    db.AddInParameter(command, "@Pass", System.Data.DbType.String, model.Password);
+
+                    db.ExecuteScalar(command);
+                    foreach (var thisguy in listofacct) //checking user table for username
+                        if (thisguy.Username == model.Username && model.Type == "Applicant")
+                        {
+                            //DbCommand command2 = db.GetStoredProcCommand("Applicants_InsertUserID");
+                            //db.AddInParameter(command2, "@Userid", System.Data.DbType.String, thisguy.Userid);
+                            currentuserid = thisguy.Userid;//name in Jobloader DB
+                            break;
+                        }
+
+                    return RedirectToAction("Create", "Applicants", new { Id = listofacct.Count + 1 });
                 }
                 else
                 {

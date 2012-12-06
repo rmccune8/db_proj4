@@ -122,17 +122,21 @@
     <Compile Include="Controllers\ApplicantsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JobsController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\AccountRepository.cs" />
     <Compile Include="Models\ApplicantsRepository.cs" />
+    <Compile Include="Models\entities\Accounts.cs" />
     <Compile Include="Models\entities\Applicants.cs" />
     <Compile Include="Models\entities\Interested_In.cs" />
     <Compile Include="Models\entities\Jobs.cs" />
     <Compile Include="Models\entities\Recruiters.cs" />
     <Compile Include="Models\entities\Users.cs" />
     <Compile Include="Models\JobsRepository.cs" />
+    <Compile Include="Models\UsersRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -235,6 +239,9 @@
     <Content Include="Views\Jobs\Index.cshtml" />
     <Content Include="Views\Jobs\PostJob.cshtml" />
     <Content Include="Views\Jobs\EditJob.cshtml" />
+    <Content Include="Views\Users\SubmitPassword.cshtml" />
+    <Content Include="Views\Applicants\AddApplicant.cshtml" />
+    <Content Include="Views\Applicants\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

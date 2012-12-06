@@ -38,12 +38,30 @@ namespace db_proj4.Models
                         applicant.Appid = reader.GetInt32(reader.GetOrdinal("Appid"));
                     }
 
-                    applicant.Degree = reader.GetString(reader.GetOrdinal("Degree"));
-                    applicant.DegreeField = reader.GetString(reader.GetOrdinal("DegreeField"));
-                    applicant.Fname = reader.GetString(reader.GetOrdinal("Fname"));
-                    applicant.Lname = reader.GetString(reader.GetOrdinal("Lname"));
-                    applicant.School = reader.GetString(reader.GetOrdinal("School"));
-                    applicant.Userid = reader.GetInt32(reader.GetOrdinal("Userid"));
+                    if (!reader.IsDBNull(reader.GetOrdinal("Degree")))
+                    {
+                        applicant.Degree = reader.GetString(reader.GetOrdinal("Degree"));
+                    }
+                    if (!reader.IsDBNull(reader.GetOrdinal("DegreeField")))
+                    {
+                        applicant.DegreeField = reader.GetString(reader.GetOrdinal("DegreeField"));
+                    }
+                    if (!reader.IsDBNull(reader.GetOrdinal("Fname")))
+                    {
+                        applicant.Fname = reader.GetString(reader.GetOrdinal("Fname"));
+                    }
+                    if (!reader.IsDBNull(reader.GetOrdinal("Lname")))
+                    {
+                        applicant.Lname = reader.GetString(reader.GetOrdinal("Lname"));
+                    }
+                    if (!reader.IsDBNull(reader.GetOrdinal("School")))
+                    {
+                        applicant.School = reader.GetString(reader.GetOrdinal("School"));
+                    }
+                    if (!reader.IsDBNull(reader.GetOrdinal("Userid")))
+                    {
+                        applicant.Userid = reader.GetInt32(reader.GetOrdinal("Userid"));
+                    }
                     list.Add(applicant);
                 }
             }
