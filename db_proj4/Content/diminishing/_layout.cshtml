@@ -1,0 +1,134 @@
+﻿@using System.Web.Mvc.Html
+@inherits System.Web.Mvc.WebViewPage
+
+<!DOCTYPE html>
+<html>
+<head>
+<!--<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />-->
+<title>@ViewBag.Title</title>
+<link href="@Url.Content("~/Content/diminishing/style.css")" rel="stylesheet" type="text/css" />
+<script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+</head>
+
+<body>
+<!--<div id="wrapper">
+    
+	<div id="menu">
+		<ul>
+			<li class="current_page_item"><span><a href="#">Home</a></span></li>
+			<li><a href="#">Blog</a></li>
+			<li><a href="#">Photos</a></li>
+			<li><a href="#">About</a></li>
+			<li><a href="#">Links</a></li>
+			<li><a href="#">Contact</a></li>
+		</ul>
+	</div>
+	<!-- end #menu
+	<div id="header">
+		<div id="logo">
+			<h1><a href="#">Job Loader</a></h1>
+		</div>-->
+<!--		<div id="search">
+			<form method="get" action="">
+				<fieldset>
+					<input type="text" name="s" id="search-text" size="15" value="enter keywords here..." />
+					<input type="submit" id="search-submit" value="GO" />
+				</fieldset>
+			</form>
+		</div>-->
+<!--	</div>-->
+	<div id="splash">&nbsp;</div>
+
+	<!-- end #header -->
+	<div id="page">
+                            <div id="logindisplay">
+                        <div align="right">@Html.Partial("_LogOnPartial")</div>
+                        </div>
+		<div id="page-bgtop">
+            	<div id="menu">
+		            <table>
+                   <tr><li>@Html.ActionLink("Home", "Index", "Home")</li></tr>
+                    @if (Request.IsAuthenticated)
+                    { 
+                        <tr><li>@Html.ActionLink("Profile", "Index", "Home")</li></tr>
+                        <tr><li>@Html.ActionLink("Jobs", "Index", "Jobs")</li></tr> 
+                    }
+                    <tr><li>@Html.ActionLink("About", "About", "Home")</li></tr>
+                    </table>
+		    </div>
+
+			<!--<div id="page-bgbtm">-->
+				<div id="content">
+					<div class="post">
+                <div id="main">
+                @RenderBody()
+            </div>
+						<div class="entry">
+						</div>
+<!--						<p class="meta">Posted by <a href="#">Someone</a> on March 10, 2008
+							&nbsp;&bull;&nbsp; <a href="#" class="comments">Comments (64)</a> &nbsp;&bull;&nbsp; <a href="#" class="permalink">Full article</a></p>-->
+					</div>
+					<div class="post">
+					</div>
+					<div class="post">
+						
+						</div>
+					</div>
+				<div style="clear: both;">&nbsp;</div>
+
+				<!-- end #content -->
+				<div id="sidebar">
+				</div>
+				<!-- end #sidebar-->
+				<div style="clear: both;">&nbsp;</div>
+			</div>
+		
+	</div>
+    
+	<!-- end #page
+</div>
+<div id="footer-wrapper">
+	<div id="three-columns">
+		<div id="column1">
+			<h2>Consectetuer</h2>
+			<ul>
+				<li><a href="#">Aliquam libero</a></li>
+				<li><a href="#">Consectetuer adipiscing elit</a></li>
+				<li><a href="#">Metus aliquam pellentesque</a></li>
+				<li><a href="#">Suspendisse iaculis mauris</a></li>
+				<li><a href="#">Urnanet non molestie semper</a></li>
+				<li><a href="#">Proin gravida orci porttitor</a></li>
+			</ul>
+		</div>
+		<div id="column2">
+			<h2>Suspendisse</h2>
+			<ul>
+				<li><a href="#">Aliquam libero</a></li>
+				<li><a href="#">Consectetuer adipiscing elit</a></li>
+				<li><a href="#">Metus aliquam pellentesque</a></li>
+				<li><a href="#">Suspendisse iaculis mauris</a></li>
+				<li><a href="#">Urnanet non molestie semper</a></li>
+				<li><a href="#">Proin gravida orci porttitor</a></li>
+			</ul>
+		</div>
+		<div id="column3">
+			<h2>Pellentesque</h2>
+			<ul>
+				<li><a href="#">Aliquam libero</a></li>
+				<li><a href="#">Consectetuer adipiscing elit</a></li>
+				<li><a href="#">Metus aliquam pellentesque</a></li>
+				<li><a href="#">Suspendisse iaculis mauris</a></li>
+				<li><a href="#">Urnanet non molestie semper</a></li>
+				<li><a href="#">Proin gravida orci porttitor</a></li>
+			</ul>
+		</div>
+	</div>
+	<div id="footer">
+		<p>Copyright (c) 2011 Sitename.com. All rights reserved. Design by <a href="http://www.freecsstemplates.org/">FCT</a>.</p>
+	</div>
+	<!-- end #footer
+</div>-->
+</body>
+</html>
