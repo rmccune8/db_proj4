@@ -11,34 +11,34 @@
         
         <div class="editor-label">
             @Html.Hidden("Userid")
-            @Html.LabelFor(m => m.Fname)
+            @Html.Label("First Name")
         </div>
         <div class="editor-field">
             @Html.TextBoxFor(m => m.Fname)
         </div>   
         
         <div class="editor-label">
-            @Html.LabelFor(m => m.Lname)
+            @Html.Label("Last Name")
         </div>
         <div class="editor-field">
             @Html.TextBoxFor(m => m.Lname)
         </div> 
     
         <div class="editor-label">
-            @Html.LabelFor(m => m.School)
+            @Html.Label("School")
         </div>
         <div class="editor-field">
             @Html.TextBoxFor(m => m.School)
         </div>
     
         <div class="editor-label">
-            @Html.LabelFor(m => m.Aemail)
+            @Html.Label("Email address")
         </div>
         <div class="editor-field">
             @Html.TextBoxFor(m => m.Aemail)
         </div>
         <div class="editor-label">
-            @Html.LabelFor(m => m.Degree)
+            @Html.Label("Degree")
         </div>
         <div class="editor-field">
             @Html.DropDownListFor(m => m.Degree, new[] { 
@@ -46,16 +46,16 @@
                 new SelectListItem() {Text = "B.S.", Value = "B.S."},
                 new SelectListItem() {Text = "M.S.", Value = "M.S."},
                 new SelectListItem() {Text = "PH.D", Value = "PH.D"},
-            }, "Choose your education level:")
+            }, "Choose your education level")
         </div>
                 <div class="editor-label">
-            @Html.LabelFor(m => m.DegreeField)
+            @Html.Label("Degree Field")
         </div>
         <div class="editor-field">
             @Html.TextBoxFor(m => m.DegreeField)
         </div>
             <p>
-            <input type="submit" value="Post" />
+            <input type="submit" value="Register" />
            @*     @Html.ActionLink("Create", "AddApplicant", new {Id= ViewData["Userid"]})*@
             
         </p>

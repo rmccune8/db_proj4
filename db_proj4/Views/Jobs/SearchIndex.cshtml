@@ -31,7 +31,7 @@
         <tr>
             <td>@Html.DisplayFor(x => @job.Date)</td>
             <td>@job.Field</td>
-            <td></td>
+            <td>@db_proj4.Models.JobsRepository.GetCompany(job.Rid)</td>
             <td>@Html.ActionLink(job.Title, "ViewJob", new { id = job.Jobid } )</td>
             <td>@job.Location</td>
         </tr>
