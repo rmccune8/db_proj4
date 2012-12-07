@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Common;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using db_proj4.Models.entities;
@@ -22,7 +23,7 @@ namespace db_proj4.Models
             var list = new List<Jobs>();
 
             DbCommand command = db.GetStoredProcCommand("Jobs_BuildList");
-            
+
             using (var reader = db.ExecuteReader(command))
             {
                 while (reader.Read())
@@ -69,7 +70,7 @@ namespace db_proj4.Models
                     {
                         job.Skills = reader.GetString(reader.GetOrdinal("Skills"));
                     }
-                    
+
 
                     list.Add(job);
                 }
@@ -154,12 +155,12 @@ namespace db_proj4.Models
         {
             var list = new List<Jobs>();
             DbCommand command;
-            
+
             if (SearchType.Equals("Location"))
             {
-            command = db.GetStoredProcCommand("Jobs_SearchLocation");
-            db.AddInParameter(command, "@SearchString", System.Data.DbType.String, SearchString);
-            db.ExecuteScalar(command);
+                command = db.GetStoredProcCommand("Jobs_SearchLocation");
+                db.AddInParameter(command, "@SearchString", System.Data.DbType.String, SearchString);
+                db.ExecuteScalar(command);
             }
             else
             {
@@ -219,6 +220,64 @@ namespace db_proj4.Models
                 }
             }
             return list;
+        }
+
+        public static string GetCompany(int Jobid)
+        {
+            string connectionString = "Data Source=.\\SQLEXPRESS;Initial Catalog=JobLoader;Integrated Security=True";
+            string queryString = "SELECT R.Company " +
+                                 "FROM Jobs J, Recruiters R " +
+                                 "WHERE J.Rid = R.Rid AND J.Rid='" + Jobid + "'";
+            string company = "";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                // Create the Command and Parameter objects.
+                SqlCommand command = new SqlCommand(queryString, connection);
+
+
+                // Open the connection in a try/catch block.
+                // Create and execute the DataReader, writing the result
+                // set to the console window.
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    company = reader[0].ToString();
+                }
+                reader.Close();
+            }
+
+            return company;
+        }
+
+        public static int GetRid(string Username)
+        {
+            string connectionString = "Data Source=.\\SQLEXPRESS;Initial Catalog=JobLoader;Integrated Security=True";
+            string queryString = "SELECT R.Rid " +
+                                 "FROM Users U, Recruiters R " +
+                                 "WHERE U.Userid = R.Userid AND U.Username='" + Username + "'";
+            int Rid = 0;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                // Create the Command and Parameter objects.
+                SqlCommand command = new SqlCommand(queryString, connection);
+
+
+                // Open the connection in a try/catch block.
+                // Create and execute the DataReader, writing the result
+                // set to the console window.
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    Rid = (int)reader[0];
+                }
+                reader.Close();
+            }
+
+            return Rid;
         }
     }
 }

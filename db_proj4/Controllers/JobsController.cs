@@ -39,7 +39,7 @@ namespace db_proj4.Controllers
 
             DbCommand command = db.GetStoredProcCommand("Jobs_InsertJob");
 
-            db.AddInParameter(command, "@Rid", System.Data.DbType.Int32, 3);
+            db.AddInParameter(command, "@Rid", System.Data.DbType.Int32, JobsRepository.GetRid(User.Identity.Name));
             db.AddInParameter(command, "@Date", System.Data.DbType.DateTime, DateTime.Now);
             db.AddInParameter(command, "@Field", System.Data.DbType.String, job.Field);
             db.AddInParameter(command, "@Skills", System.Data.DbType.String, job.Skills);
@@ -95,7 +95,7 @@ namespace db_proj4.Controllers
             var model = jobRepo.ViewEditJob(id);
             return View(model);
         }
-
+        
         public ActionResult SearchIndex(string SearchType, string SearchString)
         {
             var results = jobRepo.SearchResults(SearchType, SearchString);
