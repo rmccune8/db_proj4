@@ -122,6 +122,7 @@
     <Compile Include="Controllers\ApplicantsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JobsController.cs" />
+    <Compile Include="Controllers\RecruitersController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -136,6 +137,7 @@
     <Compile Include="Models\entities\Recruiters.cs" />
     <Compile Include="Models\entities\Users.cs" />
     <Compile Include="Models\JobsRepository.cs" />
+    <Compile Include="Models\RecruitersRepository.cs" />
     <Compile Include="Models\UsersRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -244,6 +246,11 @@
     <Content Include="Views\Applicants\Create.cshtml" />
     <Content Include="Views\Jobs\ViewJob.cshtml" />
     <Content Include="Views\Jobs\SearchIndex.cshtml" />
+    <Content Include="Views\Applicants\Edit.cshtml" />
+    <Content Include="Views\Applicants\Pro.cshtml" />
+    <Content Include="Views\Recruiters\Create.cshtml" />
+    <Content Include="Views\Recruiters\Edit.cshtml" />
+    <Content Include="Views\Recruiters\Pro.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

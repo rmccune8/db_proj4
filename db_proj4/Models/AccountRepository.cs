@@ -17,6 +17,36 @@ namespace db_proj4.Models
             db = DatabaseFactory.CreateDatabase();
         }
 
+        public Users FindUserid(string userName)
+        {
+            DbCommand command = db.GetStoredProcCommand("Users_FindUserid");
+            db.AddInParameter(command, "@Username", System.Data.DbType.String, userName);
+            db.ExecuteScalar(command);
+            var result = new Users();
+            using (var reader = db.ExecuteReader(command))
+            {
+                while (reader.Read())
+                {
+
+                    if (!reader.IsDBNull(reader.GetOrdinal("Userid")))
+                    {
+                        result.Userid = reader.GetInt32(reader.GetOrdinal("Userid"));
+                    }
+                    if (!reader.IsDBNull(reader.GetOrdinal("Type")))
+                    {
+                        result.Type = reader.GetString(reader.GetOrdinal("Type"));
+                    }
+                    if (!reader.IsDBNull(reader.GetOrdinal("Pass")))
+                    {
+                        result.Pass = reader.GetString(reader.GetOrdinal("Pass"));
+                    }
+
+                }
+                return result;
+            }
+
+        }
+
         public List<Accounts> BuildList()
         {
             var list = new List<Accounts>();

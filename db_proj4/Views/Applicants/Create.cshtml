@@ -11,34 +11,34 @@
         
         <div class="editor-label">
             @Html.Hidden("Userid")
-            @Html.Label("First Name")
+            @Html.LabelFor(m => m.Fname)
         </div>
         <div class="editor-field">
             @Html.TextBoxFor(m => m.Fname)
         </div>   
         
         <div class="editor-label">
-            @Html.Label("Last Name")
+            @Html.LabelFor(m => m.Lname)
         </div>
         <div class="editor-field">
             @Html.TextBoxFor(m => m.Lname)
         </div> 
     
         <div class="editor-label">
-            @Html.Label("School")
+            @Html.LabelFor(m => m.School)
         </div>
         <div class="editor-field">
             @Html.TextBoxFor(m => m.School)
         </div>
     
         <div class="editor-label">
-            @Html.Label("Email address")
+            @Html.LabelFor(m => m.Aemail)
         </div>
         <div class="editor-field">
             @Html.TextBoxFor(m => m.Aemail)
         </div>
         <div class="editor-label">
-            @Html.Label("Degree")
+            @Html.LabelFor(m => m.Degree)
         </div>
         <div class="editor-field">
             @Html.DropDownListFor(m => m.Degree, new[] { 
@@ -46,33 +46,15 @@
                 new SelectListItem() {Text = "B.S.", Value = "B.S."},
                 new SelectListItem() {Text = "M.S.", Value = "M.S."},
                 new SelectListItem() {Text = "PH.D", Value = "PH.D"},
-            }, "Choose your education level")
+            }, "Choose your education level:")
         </div>
                 <div class="editor-label">
-            @Html.Label("Degree Field")
+            @Html.LabelFor(m => m.DegreeField)
         </div>
         <div class="editor-field">
             @Html.TextBoxFor(m => m.DegreeField)
         </div>
             <p>
-            <input type="submit" value="Register" />
-           @*     @Html.ActionLink("Create", "AddApplicant", new {Id= ViewData["Userid"]})*@
-            
+            <input type="submit" value="Post" />
+                 
         </p>
-
-@*<table>
-    @foreach (var applicant in Model)
-    {
-        <tr>
-            <td>@applicant.Userid</td>
-            <td>@applicant.Appid</td>
-            <td>@applicant.Aemail</td>
-            <td>@applicant.Degree</td>
-            <td>@applicant.DegreeField</td>
-            <td>@applicant.Fname</td>
-            <td>@applicant.Lname</td>
-            <td>@applicant.School</td>
-        </tr>
-    }
-</table>*@
-}

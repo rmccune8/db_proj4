@@ -1,0 +1,58 @@
+﻿@model db_proj4.Models.entities.Applicants
+          
+
+@{
+    ViewBag.Title = "Pro";
+}
+
+<h2>Applicant Profile</h2>
+
+@using (Html.BeginForm()){
+    
+   @Html.HiddenFor(model => model.Userid)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Fname)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Fname , new { disabled="disabled", @readonly = "readonly" })
+         </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Lname)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Lname , new { disabled="disabled", @readonly = "readonly" })
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.School)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.School, new { disabled="disabled", @readonly = "readonly" })           
+        </div>
+    
+       <div class="editor-label">
+            @Html.LabelFor(model => model.Aemail)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Aemail, new { disabled="disabled", @readonly = "readonly" })           
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Degree)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Degree, new { disabled="disabled", @readonly = "readonly" })
+           </div>
+         <div class="editor-label">
+            @Html.LabelFor(model => model.DegreeField)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.DegreeField, new { disabled="disabled", @readonly = "readonly" })
+           </div>
+    <p>
+          @Html.ActionLink("[Edit]", "Edit", new { id = Model.Userid } ) |           
+          @Html.ActionLink("[Delete]", "Delete", new { id = Model.Userid } ) </p>
+   
+}

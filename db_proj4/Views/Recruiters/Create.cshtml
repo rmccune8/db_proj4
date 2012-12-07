@@ -1,0 +1,39 @@
+﻿@model db_proj4.Models.entities.Recruiters
+
+@{
+    ViewBag.Title = "Recruiter Account";
+}
+<h2>Hello Recruiter, Please fill in this form</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true, "Account creation was unsuccessful. Please correct the errors and try again.")
+        
+        <div class="editor-label">
+            @Html.Hidden("Userid")
+            @Html.LabelFor(m => m.Remail)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(m => m.Remail)
+        </div>   
+        
+        <div class="editor-label">
+            @Html.LabelFor(m => m.Company)
+        </div>
+            <div class="editor-field">
+            @Html.TextBoxFor(m => m.Company)
+        </div>   
+            <div class="editor-label">
+            @Html.LabelFor(m => m.Focus)
+        </div>
+            <div class="editor-field">
+            @Html.TextBoxFor(m => m.Focus)
+        </div>  
+            <p>
+            <input type="submit" value="Post" />
+          
+            
+        </p>
+
+
+}

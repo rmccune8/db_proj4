@@ -1,0 +1,38 @@
+﻿@model db_proj4.Models.entities.Recruiters
+
+@{
+    ViewBag.Title = "Pro";
+}
+
+<h2>Pro</h2>
+
+@using (Html.BeginForm()){
+    
+   @Html.HiddenFor(model => model.Userid)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Company)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Company , new { disabled="disabled", @readonly = "readonly" })
+         </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Focus)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Focus , new { disabled="disabled", @readonly = "readonly" })
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Remail)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Remail, new { disabled="disabled", @readonly = "readonly" })           
+        </div>
+           
+    <p>
+          @Html.ActionLink("[Edit]", "Edit", new { id = Model.Userid } ) |           
+          @Html.ActionLink("[Delete]", "Delete", new { id = Model.Userid } ) </p>
+   
+}
