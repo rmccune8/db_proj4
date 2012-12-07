@@ -16,8 +16,13 @@
         </div>
         <div class="editor-field">
             @Html.DropDownListFor(m => m.Field, new[] { 
-                new SelectListItem() {Text = "Networks", Value = "Networks"}, 
-                new SelectListItem() {Text = "Programming", Value = "Programming"},
+                new SelectListItem() {Text = "Systems Administration", Value = "Systems Administration"}, 
+                new SelectListItem() {Text = "Software Engineering", Value = "Software Engineering"},
+                new SelectListItem() {Text = "Database Administration", Value = "Database Administration"},
+                new SelectListItem() {Text = "Software Architect", Value = "Software Architect"},
+                new SelectListItem() {Text = "Help Desk", Value = "Help Desk"},
+                new SelectListItem() {Text = "Research", Value = "Research"},
+                new SelectListItem() {Text = "Web Development", Value = "Web Development"},
                 new SelectListItem() {Text = "Other", Value = "Other"} 
             }, "Choose an option")
         </div>
@@ -36,7 +41,8 @@
             @Html.DropDownListFor(m => m.Experience, new[] { 
                 new SelectListItem() {Text = "0-2 Years", Value = "0-2 Years"}, 
                 new SelectListItem() {Text = "3-7 Years", Value = "3-7 Years"},
-                new SelectListItem() {Text = "8+ Years", Value = "8+ Years"} 
+                new SelectListItem() {Text = "8+ Years", Value = "8+ Years"},
+                new SelectListItem() {Text = "15+", Value = "15+ Years"} 
             }, "Choose an option")
         </div>
 
@@ -65,7 +71,7 @@
             @Html.LabelFor(m => m.Description)
         </div>
         <div class="editor-field">
-            @Html.TextAreaFor(m => m.Description, new { @cols = "80", @rows = "4" })
+            @Html.TextAreaFor(m => m.Description, new { @cols = "120", @rows = "6", style="font-family:Trebuchet MS, Verdana, Helvetica, Sans-Serif;border: 1px solid #ccc;padding: 2px;font-size: 1.2em;color: #444;" })
         </div>
         <p>
             <input type="submit" value="Post" />

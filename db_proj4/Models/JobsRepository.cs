@@ -149,5 +149,76 @@ namespace db_proj4.Models
             db.AddInParameter(command, "@Description", System.Data.DbType.String, Description);
             db.ExecuteScalar(command);
         }
+
+        public List<Jobs> SearchResults(string SearchType, string SearchString)
+        {
+            var list = new List<Jobs>();
+            DbCommand command;
+            
+            if (SearchType.Equals("Location"))
+            {
+            command = db.GetStoredProcCommand("Jobs_SearchLocation");
+            db.AddInParameter(command, "@SearchString", System.Data.DbType.String, SearchString);
+            db.ExecuteScalar(command);
+            }
+            else
+            {
+                command = db.GetStoredProcCommand("Jobs_SearchTitle");
+                db.AddInParameter(command, "@SearchString", System.Data.DbType.String, SearchString);
+                db.ExecuteScalar(command);
+            }
+
+            using (var reader = db.ExecuteReader(command))
+            {
+                while (reader.Read())
+                {
+                    var job = new Jobs();
+
+                    if (!reader.IsDBNull(reader.GetOrdinal("Date")))
+                    {
+                        job.Date = reader.GetDateTime(reader.GetOrdinal("Date"));
+                    }
+                    if (!reader.IsDBNull(reader.GetOrdinal("Field")))
+                    {
+                        job.Field = reader.GetString(reader.GetOrdinal("Field"));
+                    }
+                    if (!reader.IsDBNull(reader.GetOrdinal("Title")))
+                    {
+                        job.Title = reader.GetString(reader.GetOrdinal("Title"));
+                    }
+                    if (!reader.IsDBNull(reader.GetOrdinal("Location")))
+                    {
+                        job.Location = reader.GetString(reader.GetOrdinal("Location"));
+                    }
+                    if (!reader.IsDBNull(reader.GetOrdinal("Jobid")))
+                    {
+                        job.Jobid = reader.GetInt32(reader.GetOrdinal("Jobid"));
+                    }
+                    if (!reader.IsDBNull(reader.GetOrdinal("Description")))
+                    {
+                        job.Description = reader.GetString(reader.GetOrdinal("Description"));
+                    }
+                    if (!reader.IsDBNull(reader.GetOrdinal("Experience")))
+                    {
+                        job.Experience = reader.GetString(reader.GetOrdinal("Experience"));
+                    }
+                    if (!reader.IsDBNull(reader.GetOrdinal("Rid")))
+                    {
+                        job.Rid = reader.GetInt32(reader.GetOrdinal("Rid"));
+                    }
+                    if (!reader.IsDBNull(reader.GetOrdinal("Salary")))
+                    {
+                        job.Salary = reader.GetInt32(reader.GetOrdinal("Salary"));
+                    }
+                    if (!reader.IsDBNull(reader.GetOrdinal("Skills")))
+                    {
+                        job.Skills = reader.GetString(reader.GetOrdinal("Skills"));
+                    }
+
+                    list.Add(job);
+                }
+            }
+            return list;
+        }
     }
 }

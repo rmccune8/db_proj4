@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<db_proj4.Models.entities.Jobs>
+
 @{
-    ViewBag.Title = "Jobs";
+    ViewBag.Title = "Search Results";
 }
 
-@Html.ActionLink("Post Job", "PostJob", "Jobs")
+<h2>Search Results</h2>
 
-<h3>Recently Posted Jobs</h3>
-
-@using (@Html.BeginForm("SearchIndex", "Jobs", FormMethod.Get))
+<p>
+    @using (@Html.BeginForm())
 {
     <p>Search: @Html.DropDownList("SearchType", new[] { 
                 new SelectListItem() {Text = "Title", Value = "Title"},
@@ -16,7 +16,7 @@
          <input type="submit" value="Go" />
     </p>
 }
-
+</p>
 <table>
     <tr>
         <th><b>Date</b></th>
@@ -24,10 +24,9 @@
         <th><b>Company</b></th>
         <th><b>Title</b></th>
         <th><b>Location</b></th>
-        <th colspan="2" style="text-align:center;"></th>
-        
     </tr>
-    @foreach (var job in Model)
+
+ @foreach (var job in Model)
     {
         <tr>
             <td>@Html.DisplayFor(x => @job.Date)</td>
@@ -35,8 +34,7 @@
             <td></td>
             <td>@Html.ActionLink(job.Title, "ViewJob", new { id = job.Jobid } )</td>
             <td>@job.Location</td>
-            <td>@Html.ActionLink("[Edit]", "EditJob", new { id = job.Jobid } )</td>
-            <td>@Html.ActionLink("[Delete]", "DeleteJob", new { id = job.Jobid } )</td>
         </tr>
     }
+
 </table>

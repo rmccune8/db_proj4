@@ -95,5 +95,12 @@ namespace db_proj4.Controllers
             var model = jobRepo.ViewEditJob(id);
             return View(model);
         }
+
+        public ActionResult SearchIndex(string SearchType, string SearchString)
+        {
+            var results = jobRepo.SearchResults(SearchType, SearchString);
+
+            return View(results);
+        }
     }
 }
