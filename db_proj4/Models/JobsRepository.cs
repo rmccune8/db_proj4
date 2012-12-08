@@ -224,7 +224,7 @@ namespace db_proj4.Models
 
         public static string GetCompany(int Jobid)
         {
-            string connectionString = "Data Source=.\\SQLEXPRESS;Initial Catalog=JobLoader;Integrated Security=True";
+            string connectionString = "Data Source= Guido-PC\\Guido;Initial Catalog=JobLoader;Integrated Security=True";
             string queryString = "SELECT R.Company " +
                                  "FROM Jobs J, Recruiters R " +
                                  "WHERE J.Rid = R.Rid AND J.Rid='" + Jobid + "'";
@@ -253,7 +253,7 @@ namespace db_proj4.Models
 
         public static int GetRid(string Username)
         {
-            string connectionString = "Data Source=.\\SQLEXPRESS;Initial Catalog=JobLoader;Integrated Security=True";
+            string connectionString = "Data Source= Guido-PC\\Guido;Initial Catalog=JobLoader;Integrated Security=True";
             string queryString = "SELECT R.Rid " +
                                  "FROM Users U, Recruiters R " +
                                  "WHERE U.Userid = R.Userid AND U.Username='" + Username + "'";

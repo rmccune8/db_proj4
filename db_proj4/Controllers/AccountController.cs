@@ -125,16 +125,23 @@ namespace db_proj4.Controllers
                     db.AddInParameter(command, "@Pass", System.Data.DbType.String, model.Password);
 
                     db.ExecuteScalar(command);
-                    foreach (var thisguy in listofacct) //checking user table for username
+                    var listofacct1 = accRepo.BuildList();
+                    foreach (var thisguy in listofacct1)
+                    { //checking user table for username
                         if (thisguy.Username == model.Username && model.Type == "Applicant")
                         {
-                            //DbCommand command2 = db.GetStoredProcCommand("Applicants_InsertUserID");
-                            //db.AddInParameter(command2, "@Userid", System.Data.DbType.String, thisguy.Userid);
-                            currentuserid = thisguy.Userid;//name in Jobloader DB
-                            break;
+                            // string name = User.Identity.Name;
+                            var modelUser = accRepo.FindUserid(model.Username);
+                            return RedirectToAction("Create", "Applicants", new { Id = modelUser.Userid });
                         }
+                        else if (thisguy.Username == model.Username && model.Type == "Recruiter")
+                        {
+                            //  string name = User.Identity.Name;
+                            var modelUser = accRepo.FindUserid(model.Username);
+                            return RedirectToAction("Create", "Recruiters", new { Id = modelUser.Userid });
 
-                    return RedirectToAction("Create", "Applicants", new { Id = listofacct.Count + 1 });
+                        }
+                    }
                 }
                 else
                 {

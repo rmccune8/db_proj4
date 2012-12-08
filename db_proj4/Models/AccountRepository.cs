@@ -62,6 +62,10 @@ namespace db_proj4.Models
                     {
                         account.Userid = reader.GetInt32(reader.GetOrdinal("Userid"));
                     }
+                    if (!reader.IsDBNull(reader.GetOrdinal("Type")))
+                    {
+                        account.Type = reader.GetString(reader.GetOrdinal("Type"));
+                    }
                     if (!reader.IsDBNull(reader.GetOrdinal("Username")))
                     {
                         account.Username = reader.GetString(reader.GetOrdinal("Username"));
