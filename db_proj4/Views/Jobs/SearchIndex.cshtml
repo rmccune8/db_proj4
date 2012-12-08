@@ -4,7 +4,12 @@
     ViewBag.Title = "Search Results";
 }
 
-<h2>Search Results</h2>
+@if (db_proj4.Models.JobsRepository.GetType(User.Identity.Name).Equals("Recruiter"))
+{
+    @Html.ActionLink("Post Job", "PostJob", "Jobs")
+}
+
+<h3>Search Results</h3>
 
 <p>
     @using (@Html.BeginForm())
@@ -34,6 +39,28 @@
             <td>@db_proj4.Models.JobsRepository.GetCompany(job.Rid)</td>
             <td>@Html.ActionLink(job.Title, "ViewJob", new { id = job.Jobid } )</td>
             <td>@job.Location</td>
+               @if (db_proj4.Models.JobsRepository.GetType(User.Identity.Name).Equals("Recruiter"))
+            {
+                if (db_proj4.Models.JobsRepository.GetRid(User.Identity.Name) == job.Rid)
+                {
+                <td>@Html.ActionLink("[Edit]", "EditJob", new { id = job.Jobid })</td>
+                <td>@Html.ActionLink("[Delete]", "DeleteJob", new { id = job.Jobid })</td>
+            }
+            }
+            else if (db_proj4.Models.JobsRepository.GetType(User.Identity.Name).Equals("Applicant"))
+            {
+                int aid = db_proj4.Models.JobsRepository.GetAppid(User.Identity.Name);
+                if (db_proj4.Models.JobsRepository.ShowsInterest(job.Jobid, aid) == true)
+                {
+                    <td>@Html.ActionLink("[Withdraw Interest]", "WithdrawInterest", new { id = job.Jobid })</td>
+                }
+                else
+                {
+                    <td>@Html.ActionLink("[Interested In]", "ShowInterest", new { id = job.Jobid })</td>
+                }
+            }
+            else
+            { }
         </tr>
     }
 

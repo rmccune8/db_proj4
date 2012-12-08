@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Common;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -31,7 +32,6 @@ namespace db_proj4.Controllers
                 app.Degree, app.DegreeField);
             return RedirectToAction("LogOn", "Account");
         }
-
 
         public ActionResult Edit(int id)
         {
@@ -84,5 +84,19 @@ namespace db_proj4.Controllers
             return RedirectToAction("Index", "Jobs");
         }
 
+        public ActionResult Delete(int id)
+        {
+            Database db = DatabaseFactory.CreateDatabase();
+
+            DbCommand command = db.GetStoredProcCommand("Applicants_DeleteApplicant");
+            string name = User.Identity.Name;
+            var modelUser = appRepo.FindUserid(name);
+            var modelUserAppid = appRepo.FindAppid(modelUser.Userid);
+            db.AddInParameter(command, "@Appid", System.Data.DbType.Int32, modelUserAppid.Appid);
+            db.AddInParameter(command, "@Userid", System.Data.DbType.Int32, id);
+            db.ExecuteScalar(command);
+
+            return RedirectToAction("Index", "Jobs");
+        }
     }
 }

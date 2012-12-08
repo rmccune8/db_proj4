@@ -17,6 +17,27 @@ namespace db_proj4.Models
             db = DatabaseFactory.CreateDatabase();
         }
 
+        public Applicants FindAppid(int Userid)
+        {
+            DbCommand command = db.GetStoredProcCommand("Applicants_FindAppid");
+            db.AddInParameter(command, "@Userid", System.Data.DbType.Int32, Userid);
+            db.ExecuteScalar(command);
+            var result = new Applicants();
+            using (var reader = db.ExecuteReader(command))
+            {
+                while (reader.Read())
+                {
+
+                    if (!reader.IsDBNull(reader.GetOrdinal("Appid")))
+                    {
+                        result.Appid = reader.GetInt32(reader.GetOrdinal("Appid"));
+                    }
+
+                }
+                return result;
+            }
+
+        }
 
         public Users FindUserid(string userName)
         {

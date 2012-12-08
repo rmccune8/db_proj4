@@ -56,6 +56,19 @@ namespace db_proj4.Controllers
 
         }
 
+        public ActionResult Delete(int id)
+        {
+            Database db = DatabaseFactory.CreateDatabase();
 
+            DbCommand command = db.GetStoredProcCommand("Recruiters_DeleteRecruiter");
+            string name = User.Identity.Name;
+            var modelUser = recRepo.FindUserid(name);
+            var modelUserRid = recRepo.FindRid(modelUser.Userid);
+            db.AddInParameter(command, "@Rid", System.Data.DbType.Int32, modelUserRid.Rid);
+            db.AddInParameter(command, "@Userid", System.Data.DbType.Int32, id);
+            db.ExecuteScalar(command);
+
+            return RedirectToAction("Index", "Jobs");
+        }
     }
 }

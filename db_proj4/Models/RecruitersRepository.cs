@@ -17,6 +17,27 @@ namespace db_proj4.Models
             db = DatabaseFactory.CreateDatabase();
         }
 
+        public Recruiters FindRid(int Userid)
+        {
+            DbCommand command = db.GetStoredProcCommand("Recruiters_FindRid");
+            db.AddInParameter(command, "@Userid", System.Data.DbType.Int32, Userid);
+            db.ExecuteScalar(command);
+            var result = new Recruiters();
+            using (var reader = db.ExecuteReader(command))
+            {
+                while (reader.Read())
+                {
+
+                    if (!reader.IsDBNull(reader.GetOrdinal("Rid")))
+                    {
+                        result.Rid = reader.GetInt32(reader.GetOrdinal("Rid"));
+                    }
+
+                }
+                return result;
+            }
+
+        }
 
         public Users FindUserid(string userName)
         {
