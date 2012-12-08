@@ -16,6 +16,6 @@ namespace db_proj4.Controllers
             return View();
         }
 
-        public 
+        
     }
 }

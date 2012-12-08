@@ -3,25 +3,21 @@
     ViewBag.Title = "Jobs";
 }
 
-@functions
+@if (db_proj4.Models.JobsRepository.GetType(User.Identity.Name).Equals("Recruiter"))
 {
-public 
+    @Html.ActionLink("Post Job", "PostJob", "Jobs")
 }
-
- @if (db_proj4.Models.JobsRepository.GetType(User.Identity.Name).Equals("Recruiter"))
-            {
-@Html.ActionLink("Post Job", "PostJob", "Jobs")
- }
 
 <h3>Recently Posted Jobs</h3>
 
 @using (@Html.BeginForm("SearchIndex", "Jobs", FormMethod.Get))
 {
-    <p>Search: @Html.DropDownList("SearchType", new[] { 
+    <p>
+        Search: @Html.DropDownList("SearchType", new[] { 
                 new SelectListItem() {Text = "Title", Value = "Title"},
                 new SelectListItem() {Text = "Location", Value = "Location"}
           }) @Html.TextBox("SearchString")
-         <input type="submit" value="Go" />
+        <input type="submit" value="Go" />
     </p>
 }
 
@@ -32,8 +28,8 @@ public
         <th><b>Company</b></th>
         <th><b>Title</b></th>
         <th><b>Location</b></th>
-        <th colspan="2" style="text-align:center;"></th>
-        
+        <th colspan="2" style="text-align: center;"></th>
+
     </tr>
     @foreach (var job in Model)
     {
@@ -41,19 +37,19 @@ public
             <td>@Html.DisplayFor(x => @job.Date)</td>
             <td>@job.Field</td>
             <td>@db_proj4.Models.JobsRepository.GetCompany(job.Rid)</td>
-            <td>@Html.ActionLink(job.Title, "ViewJob", new { id = job.Jobid } )</td>
+            <td>@Html.ActionLink(job.Title, "ViewJob", new { id = job.Jobid })</td>
             <td>@job.Location</td>
             @if (db_proj4.Models.JobsRepository.GetType(User.Identity.Name).Equals("Recruiter"))
             {
-            <td>@Html.ActionLink("[Edit]", "EditJob", new { id = job.Jobid } )</td>
-            <td>@Html.ActionLink("[Delete]", "DeleteJob", new { id = job.Jobid } )</td>
+                <td>@Html.ActionLink("[Edit]", "EditJob", new { id = job.Jobid })</td>
+                <td>@Html.ActionLink("[Delete]", "DeleteJob", new { id = job.Jobid })</td>
             }
             else if (db_proj4.Models.JobsRepository.GetType(User.Identity.Name).Equals("Applicant"))
             {
-                <td>interested in</td>
+                <td>@Html.ActionLink("[Interested In]", "ShowInterest", new { id = job.Jobid })</td>
             }
             else
-            {}
+            { }
         </tr>
     }
 </table>

@@ -102,5 +102,13 @@ namespace db_proj4.Controllers
 
             return View(results);
         }
+
+        public ActionResult ShowInterest(int id)
+        {
+            int Appid = JobsRepository.GetAppid(User.Identity.Name);
+            JobsRepository.InsertInterestedIn(id, Appid);
+
+            return RedirectToAction("Index");
+        }
     }
 }

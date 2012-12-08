@@ -151,6 +151,16 @@ namespace db_proj4.Models
             db.ExecuteScalar(command);
         }
 
+        public static void InsertInterestedIn(int Jobid, int Appid)
+        {
+            Database db = DatabaseFactory.CreateDatabase();
+            DbCommand command = db.GetStoredProcCommand("InterestedIn_Insert");
+
+            db.AddInParameter(command, "@Jobid", System.Data.DbType.Int32, Jobid);
+            db.AddInParameter(command, "@Appid", System.Data.DbType.Int32, Appid);
+            db.ExecuteScalar(command);
+        }
+
         public List<Jobs> SearchResults(string SearchType, string SearchString)
         {
             var list = new List<Jobs>();
@@ -224,7 +234,7 @@ namespace db_proj4.Models
 
         public static string GetCompany(int Jobid)
         {
-            string connectionString = "Data Source= Guido-PC\\Guido;Initial Catalog=JobLoader;Integrated Security=True";
+            string connectionString = "Data Source=.\\MSSQLSERVER2;Initial Catalog=JobLoader;Integrated Security=True";
             string queryString = "SELECT R.Company " +
                                  "FROM Jobs J, Recruiters R " +
                                  "WHERE J.Rid = R.Rid AND J.Rid='" + Jobid + "'";
@@ -253,7 +263,7 @@ namespace db_proj4.Models
 
         public static int GetRid(string Username)
         {
-            string connectionString = "Data Source= Guido-PC\\Guido;Initial Catalog=JobLoader;Integrated Security=True";
+            string connectionString = "Data Source=.\\MSSQLSERVER2;Initial Catalog=JobLoader;Integrated Security=True";
             string queryString = "SELECT R.Rid " +
                                  "FROM Users U, Recruiters R " +
                                  "WHERE U.Userid = R.Userid AND U.Username='" + Username + "'";
@@ -282,7 +292,7 @@ namespace db_proj4.Models
 
         public static string GetType(string Username)
         {
-            string connectionString = "Data Source= Guido-PC\\Guido;Initial Catalog=JobLoader;Integrated Security=True";
+            string connectionString = "Data Source=.\\MSSQLSERVER2;Initial Catalog=JobLoader;Integrated Security=True";
             string queryString = "SELECT U.Type " +
                                 "FROM Users U " +
                                 "WHERE U.Username='" + Username + "'";
@@ -307,6 +317,64 @@ namespace db_proj4.Models
             }
 
             return type;
+        }
+
+        public static int GetJobid(int Userid)
+        {
+            string connectionString = "Data Source=.\\MSSQLSERVER2;Initial Catalog=JobLoader;Integrated Security=True";
+            string queryString = "SELECT J.Jobid " +
+                                 "FROM Jobs J, Recruiters R " +
+                                 "WHERE J.Rid = R.Rid AND R.Userid='" + Userid + "'";
+            int Jobid = 0;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                // Create the Command and Parameter objects.
+                SqlCommand command = new SqlCommand(queryString, connection);
+
+
+                // Open the connection in a try/catch block.
+                // Create and execute the DataReader, writing the result
+                // set to the console window.
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    Jobid = (int)reader[0];
+                }
+                reader.Close();
+            }
+
+            return Jobid;
+        }
+
+        public static int GetAppid(string Username)
+        {
+            string connectionString = "Data Source=.\\MSSQLSERVER2;Initial Catalog=JobLoader;Integrated Security=True";
+            string queryString = "SELECT A.Appid " +
+                                 "FROM Applicants A, Users U " +
+                                 "WHERE A.Userid = U.Userid AND U.Username='" + Username + "'";
+            int Appid = 0;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                // Create the Command and Parameter objects.
+                SqlCommand command = new SqlCommand(queryString, connection);
+
+
+                // Open the connection in a try/catch block.
+                // Create and execute the DataReader, writing the result
+                // set to the console window.
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    Appid = (int)reader[0];
+                }
+                reader.Close();
+            }
+
+            return Appid;
         }
     }
 }
