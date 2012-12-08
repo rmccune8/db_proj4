@@ -52,8 +52,15 @@
                    <tr><li>@Html.ActionLink("Home", "Index", "Home")</li></tr>
                     @if (Request.IsAuthenticated)
                     { 
-                        <tr><li>@Html.ActionLink("Profile", "Index", "Home")</li></tr>
-                        <tr><li>@Html.ActionLink("Jobs", "Index", "Jobs")</li></tr> 
+                         if (db_proj4.Models.JobsRepository.GetType(User.Identity.Name).Equals("Recruiter"))
+                         {
+                             <li>@Html.ActionLink("Profile", "Pro", "Recruiters")</li> 
+                         }
+                         else
+                         {
+                             <li>@Html.ActionLink("Profile", "Pro", "Applicants")</li>
+                         }
+                        <li>@Html.ActionLink("Jobs", "Index", "Jobs")</li> 
                     }
                     <tr><li>@Html.ActionLink("About", "About", "Home")</li></tr>
                     </table>

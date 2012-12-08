@@ -19,7 +19,14 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     @if (Request.IsAuthenticated)
                     { 
-                        <li>@Html.ActionLink("Profile", "Index", "Home")</li> 
+                         @if (db_proj4.Models.JobsRepository.GetType(User.Identity.Name).Equals("Recruiter"))
+                         {
+                             <li>@Html.ActionLink("Profile", "Pro", "Recruiters")</li> 
+                         }
+                         else
+                         {
+                             <li>@Html.ActionLink("Profile", "Pro", "Applicants")</li>
+                         }
                         <li>@Html.ActionLink("Jobs", "Index", "Jobs")</li> 
                     }
                     <li>@Html.ActionLink("About", "About", "Home")</li>
@@ -27,15 +34,7 @@
             </div>
         </div>
         
-           @* <div id="sidebar">
-                Profile<br />
-                Application<br />
-                       Profile<br />
-                Application<br />
-                   Profile<br />
-                Application<br />
-            </div>*@
-            <div id="main">
+                 <div id="main">
                 @RenderBody()
             </div>
         

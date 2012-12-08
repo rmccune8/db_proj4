@@ -49,7 +49,7 @@ namespace db_proj4.Models
         }
         public Recruiters ViewEditRecruiter(int id)
         {
-            DbCommand command = db.GetStoredProcCommand("Recruiters_BuildList");
+            DbCommand command = db.GetStoredProcCommand("Recruiter_BuildList");
             db.AddInParameter(command, "@Userid", System.Data.DbType.Int32, id);
             db.ExecuteScalar(command);
             var result = new Recruiters();

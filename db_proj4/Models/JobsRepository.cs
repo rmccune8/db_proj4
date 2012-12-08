@@ -279,5 +279,34 @@ namespace db_proj4.Models
 
             return Rid;
         }
+
+        public static string GetType(string Username)
+        {
+            string connectionString = "Data Source= Guido-PC\\Guido;Initial Catalog=JobLoader;Integrated Security=True";
+            string queryString = "SELECT U.Type " +
+                                "FROM Users U " +
+                                "WHERE U.Username='" + Username + "'";
+            string type = "";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                // Create the Command and Parameter objects.
+                SqlCommand command = new SqlCommand(queryString, connection);
+
+
+                // Open the connection in a try/catch block.
+                // Create and execute the DataReader, writing the result
+                // set to the console window.
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    type = reader[0].ToString();
+                }
+                reader.Close();
+            }
+
+            return type;
+        }
     }
 }
