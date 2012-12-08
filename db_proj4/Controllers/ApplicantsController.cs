@@ -29,7 +29,7 @@ namespace db_proj4.Controllers
         {
             ApplicantsRepository.InsertApplicant(app.Userid, app.Fname, app.Lname, app.School, app.Aemail,
                 app.Degree, app.DegreeField);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("LogOn", "Account");
         }
 
 

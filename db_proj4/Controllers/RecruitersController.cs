@@ -27,9 +27,8 @@ namespace db_proj4.Controllers
         public ActionResult Create(Recruiters rec)
         {
             RecruitersRepository.InsertRecruiter(rec.Userid, rec.Company, rec.Focus, rec.Remail);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("LogOn", "Account");
         }
-
 
         public ActionResult Edit(int id)
         {
@@ -39,7 +38,6 @@ namespace db_proj4.Controllers
         [HttpPost]
         public ActionResult Edit(Recruiters rec)
         {
-
             int Userid = rec.Userid;
             string Company = rec.Company, Focus = rec.Focus, Remail = rec.Remail;
 
@@ -47,8 +45,6 @@ namespace db_proj4.Controllers
 
             return RedirectToAction("Index", "Jobs");
         }
-
-
 
         public ActionResult Pro()
         {

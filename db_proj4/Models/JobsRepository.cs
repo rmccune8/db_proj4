@@ -242,12 +242,12 @@ namespace db_proj4.Models
             return list;
         }
 
-        public static string GetCompany(int Jobid)
+        public static string GetCompany(int Rid)
         {
             string connectionString = "Data Source=.\\MSSQLSERVER2;Initial Catalog=JobLoader;Integrated Security=True";
             string queryString = "SELECT R.Company " +
                                  "FROM Jobs J, Recruiters R " +
-                                 "WHERE J.Rid = R.Rid AND J.Rid='" + Jobid + "'";
+                                 "WHERE J.Rid = R.Rid AND J.Rid='" + Rid + "'";
             string company = "";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -269,6 +269,35 @@ namespace db_proj4.Models
             }
 
             return company;
+        }
+
+        public static int GetUserid(string Username)
+        {
+            string connectionString = "Data Source=.\\MSSQLSERVER2;Initial Catalog=JobLoader;Integrated Security=True";
+            string queryString = "SELECT U.Userid " +
+                                 "FROM Users U " +
+                                 "WHERE U.Username='" + Username + "'";
+            int Userid = 0;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                // Create the Command and Parameter objects.
+                SqlCommand command = new SqlCommand(queryString, connection);
+
+
+                // Open the connection in a try/catch block.
+                // Create and execute the DataReader, writing the result
+                // set to the console window.
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    Userid = (int)reader[0];
+                }
+                reader.Close();
+            }
+
+            return Userid;
         }
 
         public static int GetRid(string Username)
