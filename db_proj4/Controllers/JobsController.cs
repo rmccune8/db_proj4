@@ -110,5 +110,13 @@ namespace db_proj4.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public ActionResult WithdrawInterest(int id)
+        {
+            int Appid = JobsRepository.GetAppid(User.Identity.Name);
+            JobsRepository.DeleteInterestedIn(id, Appid);
+
+            return RedirectToAction("Index");
+        }
     }
 }

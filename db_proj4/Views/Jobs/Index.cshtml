@@ -46,7 +46,15 @@
             }
             else if (db_proj4.Models.JobsRepository.GetType(User.Identity.Name).Equals("Applicant"))
             {
-                <td>@Html.ActionLink("[Interested In]", "ShowInterest", new { id = job.Jobid })</td>
+                int aid = db_proj4.Models.JobsRepository.GetAppid(User.Identity.Name);
+                if (db_proj4.Models.JobsRepository.ShowsInterest(job.Jobid, aid) == true)
+                {
+                    <td>@Html.ActionLink("[Withdraw Interest]", "WithdrawInterest", new { id = job.Jobid })</td>
+                }
+                else
+                {
+                    <td>@Html.ActionLink("[Interested In]", "ShowInterest", new { id = job.Jobid })</td>
+                }
             }
             else
             { }

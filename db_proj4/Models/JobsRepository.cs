@@ -161,6 +161,16 @@ namespace db_proj4.Models
             db.ExecuteScalar(command);
         }
 
+        public static void DeleteInterestedIn(int Jobid, int Appid)
+        {
+            Database db = DatabaseFactory.CreateDatabase();
+            DbCommand command = db.GetStoredProcCommand("InterestedIn_Delete");
+
+            db.AddInParameter(command, "@Jobid", System.Data.DbType.Int32, Jobid);
+            db.AddInParameter(command, "@Appid", System.Data.DbType.Int32, Appid);
+            db.ExecuteScalar(command);
+        }
+
         public List<Jobs> SearchResults(string SearchType, string SearchString)
         {
             var list = new List<Jobs>();
@@ -375,6 +385,38 @@ namespace db_proj4.Models
             }
 
             return Appid;
+        }
+
+        public static bool ShowsInterest(int Jobid, int Appid)
+        {
+            bool InterestedIn = false;
+
+            string connectionString = "Data Source=.\\MSSQLSERVER2;Initial Catalog=JobLoader;Integrated Security=True";
+            string queryString = "SELECT I.Jobid " +
+                                 "FROM Interested_In I " +
+                                 "WHERE I.Jobid='" + Jobid + "' AND I.Appid='" + Appid + "'";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                // Create the Command and Parameter objects.
+                SqlCommand command = new SqlCommand(queryString, connection);
+
+
+                // Open the connection in a try/catch block.
+                // Create and execute the DataReader, writing the result
+                // set to the console window.
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+               
+                    if (reader.HasRows == true)
+                    {
+                        InterestedIn = true;
+                    }
+                
+                reader.Close();
+            }
+
+            return InterestedIn;
         }
     }
 }
